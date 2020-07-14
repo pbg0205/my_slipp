@@ -51,6 +51,7 @@ public class User {
 	}
 
 	public void update(User updateUser) {
+		this.userId = updateUser.userId;
 		this.password = updateUser.password;
 		this.name = updateUser.name;
 		this.email = updateUser.email;

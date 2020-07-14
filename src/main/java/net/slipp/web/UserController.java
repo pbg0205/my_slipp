@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.slipp.domain.User;
@@ -44,7 +45,7 @@ public class UserController {
 		return "user/updateform";
 	}
 	
-	@PostMapping("/{id}") //수정하고자  하는 id 정보를 호출하는 메소드
+	@PutMapping("/{id}") //수정하고자  하는 id 정보를 호출하는 메소드
 	public String update(@PathVariable Long id, User updateUser) {
 		User user = userRepository.findById(id).get();
 		user.update(updateUser); //user class에서 수정하고 싶은 정보를 수정하는 메소드 
