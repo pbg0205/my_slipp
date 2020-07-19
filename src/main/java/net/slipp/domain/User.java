@@ -18,13 +18,11 @@ public class User {
 	private String name;
 	private String email;
 	
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
+	public boolean matchId(Long newId) {
+		if(newId == null) {
+			return false;
+		}
+		return newId.equals(id);
 	}
 
 	public void setUserId(String userId) {
@@ -50,11 +48,6 @@ public class User {
 		this.email = email;
 	}
 	
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", password=" + password + ", name=" + name + ", email=" + email + "]";
-	}
-
 	public void update(User updateUser) {
 		this.userId = updateUser.userId;
 		this.password = updateUser.password;
@@ -62,4 +55,17 @@ public class User {
 		this.email = updateUser.email;
 		
 	}
+	
+	public boolean matchPassword(String newPassword) {
+		if(newPassword == null) {
+			return false;
+		}
+		return newPassword.equals(password);
+	}
+	
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", password=" + password + ", name=" + name + ", email=" + email + "]";
+	}
+
 }
