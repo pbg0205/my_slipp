@@ -32,12 +32,12 @@ public class UserController {
 		User user = userRepository.findByUserId(userId);
 		
 		if(user == null) {
-			System.out.println("Login Failure! ");
+			System.out.println("Login Failure!(USER NULL) ");
 			return "redirect:/users/loginForm";
 		}
 		
 		if(!user.matchPassword(password)) {
-			System.out.println("Login Failure! ");
+			System.out.println("Login Failure!(PW UNMATCHING) ");
 			return "redirect:/users/loginForm";
 		}
 		
