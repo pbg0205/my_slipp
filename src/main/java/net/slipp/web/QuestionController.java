@@ -52,41 +52,59 @@ public class QuestionController {
 	
 	@GetMapping("/{id}/form")
 	public String updateForm(@PathVariable Long id, Model model,  HttpSession session) {
+		try{
+			
+			Question question = questionRepository.findById(id).get();
+			hasPermission(session, question);
+			model.addAttribute("question", question);
+			return "/qna/updateForm";
+			
+		}catch (IllegalStateException e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "/user/login";
+		}
+	}
+	
+	private boolean hasPermission(HttpSession session, Question question) {
 		if(!HttpSessionUtils.isLoginUser(session)) {
-			return "redirect:/users/loginForm";
+			throw new IllegalStateException("로그인이 필요합니다.");
 		}
 		
-		User sessionedUser = HttpSessionUtils.getUserFromSession(session);
-		Question question = questionRepository.findById(id).get();
-		if(!question.isSameWriter(sessionedUser)) {
-			return "/users/loginForm";
+		User loginUser = HttpSessionUtils.getUserFromSession(session);
+		if(!question.isSameWriter(loginUser)) {
+			throw new IllegalStateException("자신의 쓴 글만 수정, 삭제가 가능합니다.");
 		}
 		
-		model.addAttribute("question", question);
-		return "/qna/updateForm";
+		return true;
 	}
 	
 	@PutMapping("/{id}")
-	public String update(@PathVariable Long id, String title, String contents) {
-		Question question = questionRepository.findById(id).get();
-		question.update(title, contents);
-		questionRepository.save(question);
-		return String.format("redirect:/questions/%d", id);
+	public String update(@PathVariable Long id, String title, String contents, HttpSession session) {
+		try{
+			
+			Question question = questionRepository.findById(id).get();
+			hasPermission(session, question);
+			question.update(title, contents);
+			questionRepository.save(question);
+			return String.format("redirect:/questions/%d", id);
+		
+		}catch (IllegalStateException e) {
+			return "/user/login";
+		}
 	}
 	
 	@DeleteMapping("/{id}")
-	public String delete(@PathVariable Long id, HttpSession session) {
-		if(!HttpSessionUtils.isLoginUser(session)) {
-			return "redirect:/users/loginForm";
+	public String delete(@PathVariable Long id,Model model, HttpSession session) {
+		try{
+			
+			Question question = questionRepository.findById(id).get();
+			hasPermission(session, question);
+			questionRepository.deleteById(id);
+			return "redirect:/";
+			
+		}catch (IllegalStateException e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "/user/login";
 		}
-
-		User sessionedUser = HttpSessionUtils.getUserFromSession(session);
-		Question question = questionRepository.findById(id).get();
-		if(!question.isSameWriter(sessionedUser)) {
-			return "/users/loginForm";
-		}
-		
-		questionRepository.deleteById(id);
-		return "redirect:/";
 	}
 }

@@ -2,6 +2,7 @@ package net.slipp.domain;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.type.LocalDateTimeType;
 
@@ -25,11 +28,14 @@ public class Question {
 	
 	private String title;
 	
-	@Lob
+	@Lob //상당히 긴 내용을 첨가할 경우
 	private String contents;
 	
 	private LocalDateTime createDate;
 	
+	@OneToMany(mappedBy = "question")
+	@OrderBy("id ASC")
+	private List<Answer> answers;
 	
 	public Question() {
 	}
