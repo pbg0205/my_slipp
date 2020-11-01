@@ -1,5 +1,4 @@
 # my_slipp
-<<<<<<< HEAD
 - 스프링 부트(spring-boot)를 학습한 코드 저장 공간 입니다.
 - [Spring-Boot, JPA로 질문/답변 게시판 구현 과정](https://www.youtube.com/watch?v=RvWC4njEKUY&list=PLqaSEyuwXkSppQAjwjXZgKkjWbFoUdNXC&index=7)을 들으며 학습한 내용 입니다. 
 - 강의 내용이 필요하시다면 [블로그](https://pbg0205.tistory.com/category/Programming/Spring-boot)에 참고 부탁드립니다.
@@ -49,7 +48,3 @@
     - [6.5 - 도메인 클래스에 대한 중복 제거 및 리팩토링](https://pbg0205.tistory.com/78?category=850277)
     - [6.6 - Swagger 라이브러리를 통한 API 문서화 및 테스트](https://pbg0205.tistory.com/79?category=850277)
     - [6.7 - 쉘 스크립트를 활용한 배포 자동화]()
-=======
-spring-boot 학습을 위한 github
-학습 내용 url : https://pbg0205.tistory.com/14
->>>>>>> f1adb0877d0ef19c4db7f57f497506309b257b87
